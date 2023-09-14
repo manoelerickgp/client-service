@@ -8,6 +8,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 public class ClientService {
@@ -29,5 +30,11 @@ public class ClientService {
                 .filter(c -> c.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client Not Found"));
+    }
+
+    public Client insert(Client client) {
+        client.setId(ThreadLocalRandom.current().nextLong(0, 1000));
+        clients.add(client);
+        return client;
     }
 }
