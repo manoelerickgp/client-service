@@ -32,16 +32,15 @@ public class ClientResource {
         return ResponseEntity.ok().body(client);
     }
 
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Client> insert(@RequestBody Client client) {
         client = service.insert(client);
         return ResponseEntity.ok().body(client);
     }
 
-    @PutMapping(path = "/{id}")
-    public ResponseEntity<Client> update(@PathVariable Long id, @RequestBody Client client){
+    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Client> update(@PathVariable Long id, @RequestBody Client client) {
         service.update(id, client);
         return ResponseEntity.ok().body(client);
-
-
+    }
 }
