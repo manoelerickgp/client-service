@@ -37,4 +37,9 @@ public class ClientService {
         clients.add(client);
         return client;
     }
+
+    public void update(Long id, Client client) {
+        clients.remove(findById(id));
+        insert(client);
+    }
 }
