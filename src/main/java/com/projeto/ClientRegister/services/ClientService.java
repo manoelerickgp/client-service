@@ -38,8 +38,13 @@ public class ClientService {
         return client;
     }
 
-    public void update(Long id, Client client) {
+    public Client update(Long id, Client client) {
         clients.remove(findById(id));
         insert(client);
+        return client;
+    }
+
+    public void delete(Long id) {
+        clients.remove(findById(id));
     }
 }
