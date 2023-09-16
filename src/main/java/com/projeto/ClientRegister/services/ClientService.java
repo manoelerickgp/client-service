@@ -2,12 +2,13 @@ package com.projeto.ClientRegister.services;
 
 import com.projeto.ClientRegister.entities.Client;
 import com.projeto.ClientRegister.repositories.ClientRepository;
-import org.springframework.stereotype.Component;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
-@Component
+@Service
 public class ClientService {
 
     private final ClientRepository repository;
@@ -21,22 +22,29 @@ public class ClientService {
     }
 
     public Client findById(Long id) {
-        return repository.findById(id);
+        return repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id Not Found"));
     }
 
     public Client insert(Client client) {
-        client.setId(ThreadLocalRandom.current().nextLong(0, 1000));
-        repository.save(client);
-        return client;
+        return repository.save(client);
     }
 
-    public Client update(Long id, Client client) {
-        client.setId(ThreadLocalRandom.current().nextLong(0, 1000));
-        repository.update(client, id);
-        return client;
+    public Client update(Long id, Client clientToBeUpdated) {
+        Client clientSaved = findById(id);
+        updateClient(clientSaved, clientToBeUpdated);
+        return repository.save(clientSaved);
     }
 
     public void delete(Long id) {
-        repository.delete(id);
+        repository.delete(findById(id));
+    }
+
+    private void updateClient(Client clientSaved, Client clientToBeUpdated) {
+        clientSaved.setName(clientToBeUpdated.getName());
+        clientSaved.setCpf(clientToBeUpdated.getCpf());
+        clientSaved.setIncome(clientToBeUpdated.getIncome());
+        clientSaved.setBirthDate(clientToBeUpdated.getBirthDate());
+        clientSaved.setChildren(clientToBeUpdated.getChildren());
     }
 }

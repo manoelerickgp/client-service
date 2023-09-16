@@ -3,6 +3,7 @@ package com.projeto.ClientRegister.Controllers;
 import com.projeto.ClientRegister.entities.Client;
 import com.projeto.ClientRegister.services.ClientService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class ClientResource {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Client> update(@PathVariable Long id, @RequestBody Client client) {
+    public ResponseEntity<Client> update(@PathVariable Long id,@Validated @RequestBody Client client) {
         client = service.update(id, client);
         return ResponseEntity.ok().body(client);
     }
