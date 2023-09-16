@@ -2,12 +2,9 @@ package com.projeto.ClientRegister.Controllers;
 
 import com.projeto.ClientRegister.entities.Client;
 import com.projeto.ClientRegister.services.ClientService;
-import org.apache.coyote.Response;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -44,7 +41,7 @@ public class ClientResource {
         return ResponseEntity.ok().body(client);
     }
 
-    @RequestMapping(path = "/{id}")
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
