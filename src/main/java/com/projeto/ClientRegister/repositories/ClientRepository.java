@@ -25,9 +25,9 @@ public class ClientRepository {
         map.put(obj.getId(), obj);
     }
 
-    public Client update(Client newObj, Long id) {
+    public void update(Client newObj, Long id) {
         map.remove(id);
-        return map.put(newObj.getId(), newObj);
+        map.put(newObj.getId(), newObj);
     }
 
     public void delete(Long id){

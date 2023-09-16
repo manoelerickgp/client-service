@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping(path = "/clients")
 public class ClientResource {
 
-    private ClientService service;
+    private final ClientService service;
 
     public ClientResource(ClientService service){
         this.service = service;
