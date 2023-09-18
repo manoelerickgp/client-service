@@ -31,14 +31,14 @@ public class ClientService {
 
     public ClientDTO insert(ClientDTO clientDtoToBeSaved) {
         Client clientSaved = new Client();
-        copyClientDtoToEntity(clientSaved, clientDtoToBeSaved);
+        copyDtoToEntity(clientSaved, clientDtoToBeSaved);
         clientSaved = repository.save(clientSaved);
         return new ClientDTO(clientSaved);
     }
 
     public ClientDTO update(Long id, ClientDTO clientToBeUpdated) {
         Client clientSaved = repository.getReferenceById(id);
-        copyClientDtoToEntity(clientSaved, clientToBeUpdated);
+        copyDtoToEntity(clientSaved, clientToBeUpdated);
         clientSaved = repository.save(clientSaved);
         return new ClientDTO(clientSaved);
     }
@@ -47,7 +47,7 @@ public class ClientService {
         repository.deleteById(id);
     }
 
-    private void copyClientDtoToEntity(Client clientSaved, ClientDTO clientToBeUpdated) {
+    private void copyDtoToEntity(Client clientSaved, ClientDTO clientToBeUpdated) {
         clientSaved.setName(clientToBeUpdated.getName());
         clientSaved.setCpf(clientToBeUpdated.getCpf());
         clientSaved.setIncome(clientToBeUpdated.getIncome());

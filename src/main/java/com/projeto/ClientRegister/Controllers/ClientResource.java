@@ -1,11 +1,9 @@
 package com.projeto.ClientRegister.Controllers;
 
 import com.projeto.ClientRegister.DTO.ClientDTO;
-import com.projeto.ClientRegister.entities.Client;
 import com.projeto.ClientRegister.services.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
