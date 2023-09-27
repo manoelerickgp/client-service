@@ -20,8 +20,8 @@ public class ClientResource {
         this.service = service;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<ClientDTO>> findAllClients(){
+    @GetMapping
+    public ResponseEntity<List<ClientDTO>> findAll(){
         List<ClientDTO> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
@@ -40,13 +40,13 @@ public class ClientResource {
         return ResponseEntity.created(uri).body(clientDTO);
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "/update/{id}")
     public ResponseEntity<ClientDTO> update(@PathVariable Long id,@Valid @RequestBody ClientDTO clientDTO) {
         clientDTO = service.update(id, clientDTO);
         return ResponseEntity.ok().body(clientDTO);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
