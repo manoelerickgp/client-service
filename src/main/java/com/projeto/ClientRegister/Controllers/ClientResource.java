@@ -5,7 +5,9 @@ import com.projeto.ClientRegister.services.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -24,6 +26,7 @@ public class ClientResource {
         return ResponseEntity.ok().body(list);
     }
 
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<ClientDTO> findClientById(@PathVariable Long id) {
         ClientDTO clientDTO = service.findById(id);
@@ -33,7 +36,8 @@ public class ClientResource {
     @PostMapping(value = "/save")
     public ResponseEntity<ClientDTO> save(@RequestBody ClientDTO clientDTO) {
         clientDTO = service.insert(clientDTO);
-        return ResponseEntity.ok().body(clientDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(clientDTO.getId()).toUri();
+        return ResponseEntity.created(uri).body(clientDTO);
     }
 
     @PutMapping(value = "/{id}")
